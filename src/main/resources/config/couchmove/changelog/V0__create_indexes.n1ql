@@ -1,0 +1,14 @@
+-- create indexes
+CREATE INDEX type ON ${bucket}(`_class`)
+    WITH { "defer_build" : true };
+
+CREATE INDEX user_mail ON ${bucket}(email)
+    WHERE `_class` = "io.github.jhipster.sample.domain.User"
+    WITH { "defer_build" : true };
+
+CREATE INDEX audit_event ON ${bucket}(principal, event_date, event_type)
+    WHERE `_class` = "io.github.jhipster.sample.domain.PersistentAuditEvent"
+    WITH { "defer_build" : true };
+
+-- build indexes asynchronously
+BUILD INDEX ON ${bucket}(type, user_mail, audit_event);

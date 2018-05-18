@@ -1,0 +1,16 @@
+version: '2'
+services:
+    jhipstercouchbasesampleapplication-app:
+        image: jhipstercouchbasesampleapplication
+        environment:
+            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_COUCHBASE_BOOTSTRAP_HOSTS=jhipstercouchbasesampleapplication-couchbase
+            - SPRING_COUCHBASE_BUCKET_NAME=jhipsterCouchbaseSampleApplication
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    jhipstercouchbasesampleapplication-couchbase:
+        extends:
+            file: couchbase.yml
+            service: jhipstercouchbasesampleapplication-couchbase
