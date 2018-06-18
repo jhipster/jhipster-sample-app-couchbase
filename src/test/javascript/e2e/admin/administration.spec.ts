@@ -51,6 +51,18 @@ describe('administration', () => {
             });
     });
 
+    it('should load configuration', () => {
+        navBarPage.clickOnAdmin('jhi-configuration');
+        const expect1 = /configuration.title/;
+        element
+            .all(by.css('h2'))
+            .first()
+            .getAttribute('jhiTranslate')
+            .then(value => {
+                expect(value).toMatch(expect1);
+            });
+    });
+
     it('should load audits', () => {
         navBarPage.clickOnAdmin('audits');
         const expect1 = /audits.title/;

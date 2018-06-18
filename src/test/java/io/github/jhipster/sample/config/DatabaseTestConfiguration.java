@@ -61,7 +61,7 @@ public class DatabaseTestConfiguration extends AbstractCouchbaseConfiguration {
         if (couchbaseContainer != null) {
             return couchbaseContainer;
         }
-        couchbaseContainer = new CouchbaseContainer<>("couchbase/server:5.0.1");
+        couchbaseContainer = new CouchbaseContainer<>("couchbase/server:5.1.0");
         couchbaseContainer
             .withNewBucket(DefaultBucketSettings.builder()
                 .name(getBucketName())

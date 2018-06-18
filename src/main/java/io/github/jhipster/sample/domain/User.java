@@ -38,7 +38,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @IdPrefix
     private String prefix = PREFIX;
-
     @Id
     @GeneratedValue(strategy = USE_ATTRIBUTES, delimiter = ID_DELIMITER)
     private String id;
