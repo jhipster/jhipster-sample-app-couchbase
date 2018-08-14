@@ -29,7 +29,7 @@ spring:
         bootstrap-hosts: localhost
         bucket:
             name: jhipsterCouchbaseSampleApplication
-            password: changeit
+            password: password
     mail:
         host: localhost
         port: 25

@@ -6,7 +6,7 @@
     "last_name": "User",
     "email": "user@localhost",
     "activated": true,
-    "lang_key": "fr",
+    "lang_key": "en",
     "created_by": "system",
     "last_modified_by": "system",
     "authorities": [
