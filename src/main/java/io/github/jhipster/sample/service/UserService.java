@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import io.github.jhipster.sample.web.rest.errors.InvalidPasswordException;
+import io.github.jhipster.sample.web.rest.errors.*;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -83,16 +83,29 @@ public class UserService {
     }
 
     public User registerUser(UserDTO userDTO, String password) {
-
+        userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
+            if (!existingUser.getActivated()) {
+                userRepository.delete(existingUser);
+            } else {
+                throw new LoginAlreadyUsedException();
+            }
+        });
+        userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).ifPresent(existingUser -> {
+            if (!existingUser.getActivated()) {
+                userRepository.delete(existingUser);
+            } else {
+                throw new EmailAlreadyUsedException();
+            }
+        });
         User newUser = new User();
         Set<String> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(userDTO.getLogin());
+        newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
-        newUser.setEmail(userDTO.getEmail());
+        newUser.setEmail(userDTO.getEmail().toLowerCase());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
@@ -108,10 +121,10 @@ public class UserService {
 
     public User createUser(UserDTO userDTO) {
         User user = new User();
-        user.setLogin(userDTO.getLogin());
+        user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail());
+        user.setEmail(userDTO.getEmail().toLowerCase());
         user.setImageUrl(userDTO.getImageUrl());
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
@@ -144,7 +157,7 @@ public class UserService {
             .ifPresent(user -> {
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
-                user.setEmail(email);
+                user.setEmail(email.toLowerCase());
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
                 userRepository.save(user);
@@ -167,10 +180,10 @@ public class UserService {
                 if (!user.getLogin().equals(userDTO.getLogin())) {
                     userRepository.deleteById(userDTO.getId());
                 }
-                user.setLogin(userDTO.getLogin());
+                user.setLogin(userDTO.getLogin().toLowerCase());
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
-                user.setEmail(userDTO.getEmail());
+                user.setEmail(userDTO.getEmail().toLowerCase());
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
