@@ -1,33 +1,31 @@
-import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+/* tslint:disable max-line-length */
+import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { JhipsterCouchbaseSampleApplicationTestModule } from '../../../test.module';
-import { UserMgmtDeleteDialogComponent } from 'app/admin/user-management/user-management-delete-dialog.component';
-import { UserService } from 'app/core';
+import { BankAccountDeleteDialogComponent } from 'app/entities/bank-account/bank-account-delete-dialog.component';
+import { BankAccountService } from 'app/entities/bank-account/bank-account.service';
 
 describe('Component Tests', () => {
-    describe('User Management Delete Component', () => {
-        let comp: UserMgmtDeleteDialogComponent;
-        let fixture: ComponentFixture<UserMgmtDeleteDialogComponent>;
-        let service: UserService;
+    describe('BankAccount Management Delete Component', () => {
+        let comp: BankAccountDeleteDialogComponent;
+        let fixture: ComponentFixture<BankAccountDeleteDialogComponent>;
+        let service: BankAccountService;
         let mockEventManager: any;
         let mockActiveModal: any;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [JhipsterCouchbaseSampleApplicationTestModule],
-                declarations: [UserMgmtDeleteDialogComponent]
+                declarations: [BankAccountDeleteDialogComponent]
             })
-                .overrideTemplate(UserMgmtDeleteDialogComponent, '')
+                .overrideTemplate(BankAccountDeleteDialogComponent, '')
                 .compileComponents();
-        }));
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(UserMgmtDeleteDialogComponent);
+            fixture = TestBed.createComponent(BankAccountDeleteDialogComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(UserService);
+            service = fixture.debugElement.injector.get(BankAccountService);
             mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
             mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
         });
@@ -40,11 +38,11 @@ describe('Component Tests', () => {
                     spyOn(service, 'delete').and.returnValue(of({}));
 
                     // WHEN
-                    comp.confirmDelete('user');
+                    comp.confirmDelete('123');
                     tick();
 
                     // THEN
-                    expect(service.delete).toHaveBeenCalledWith('user');
+                    expect(service.delete).toHaveBeenCalledWith('123');
                     expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
                     expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
                 })
