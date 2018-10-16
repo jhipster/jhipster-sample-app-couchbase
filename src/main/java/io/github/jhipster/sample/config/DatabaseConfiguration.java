@@ -41,6 +41,7 @@ public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
+
     @Bean
     public ValidatingCouchbaseEventListener validatingCouchbaseEventListener() {
         return new ValidatingCouchbaseEventListener(validator());

@@ -3,7 +3,7 @@ services:
     jhipstercouchbasesampleapplication-app:
         image: jhipstercouchbasesampleapplication
         environment:
-            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - SPRING_COUCHBASE_BOOTSTRAP_HOSTS=jhipstercouchbasesampleapplication-couchbase
             - SPRING_COUCHBASE_BUCKET_NAME=jhipsterCouchbaseSampleApplication
