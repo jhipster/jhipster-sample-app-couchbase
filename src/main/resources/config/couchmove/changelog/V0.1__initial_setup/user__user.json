@@ -1,7 +1,7 @@
 {
     "login": "user",
     "password": "$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K",
-    
+
     "first_name": "User",
     "last_name": "User",
     "email": "user@localhost",
@@ -9,8 +9,6 @@
     "lang_key": "en",
     "created_by": "system",
     "last_modified_by": "system",
-    "authorities": [
-        "ROLE_USER"
-    ],
+    "authorities": ["ROLE_USER"],
     "_class": "io.github.jhipster.sample.domain.User"
 }
