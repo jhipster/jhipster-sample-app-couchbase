@@ -17,4 +17,10 @@ import {
     exports: [JhipsterCouchbaseSampleApplicationSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class JhipsterCouchbaseSampleApplicationSharedModule {}
+export class JhipsterCouchbaseSampleApplicationSharedModule {
+    static forRoot() {
+        return {
+            ngModule: JhipsterCouchbaseSampleApplicationSharedModule
+        };
+    }
+}
