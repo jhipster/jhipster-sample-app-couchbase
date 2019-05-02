@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.List;
 
 /**
- * Spring Data Couchbase repository for the PersistentAuditEvent entity.
+ * Spring Data Couchbase repository for the {@link PersistentAuditEvent} entity.
  */
 public interface PersistenceAuditEventRepository extends N1qlCouchbaseRepository<PersistentAuditEvent, String> {
 

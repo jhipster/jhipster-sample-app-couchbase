@@ -3,8 +3,10 @@ package io.github.jhipster.sample.repository;
 import io.github.jhipster.sample.domain.User;
 
 import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.time.Instant;
@@ -12,7 +14,7 @@ import java.time.Instant;
 import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
 
 /**
- * Spring Data Couchbase repository for the User entity.
+ * Spring Data Couchbase repository for the {@link User} entity.
  */
 @Repository
 public interface UserRepository extends N1qlCouchbaseRepository<User, String> {

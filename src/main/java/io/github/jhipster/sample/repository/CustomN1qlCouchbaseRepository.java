@@ -8,7 +8,7 @@ import org.springframework.data.couchbase.repository.support.N1qlCouchbaseReposi
 import java.io.Serializable;
 
 /**
- * A custom implementation of CouchbaseRepository .
+ * A custom implementation of {@code CouchbaseRepository}.
  */
 public class CustomN1qlCouchbaseRepository<T, ID extends Serializable> extends N1qlCouchbaseRepository<T, ID> {
 
@@ -31,10 +31,10 @@ public class CustomN1qlCouchbaseRepository<T, ID extends Serializable> extends N
     }
 
     /**
-     * Add generated ID to entity if not already set
+     * Add generated ID to entity if not already set.
      *
-     * @param entity
-     * @return entity with ID set
+     * @param entity the entity to update.
+     * @return entity with ID set.
      */
     private <S extends T> S populateIdIfNecessary(S entity) {
         if (getEntityInformation().getId(entity) != null) {

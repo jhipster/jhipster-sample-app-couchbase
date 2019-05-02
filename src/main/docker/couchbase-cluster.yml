@@ -1,23 +1,23 @@
 version: '2'
 services:
-    jhipstercouchbasesampleapplication-couchbase:
-        build:
-            context: .
-            dockerfile: couchbase/Couchbase.Dockerfile
-        ports:
-            - 8091:8091
-            - 8092:8092
-            - 8093:8093
-            - 11210:11210
-        environment:
-            - TYPE=MASTER
-            - BUCKET=jhipsterCouchbaseSampleApplication
-    jhipstercouchbasesampleapplication-couchbase-node:
-        build:
-            context: .
-            dockerfile: couchbase/Couchbase.Dockerfile
-        environment:
-            - TYPE=WORKER
-            - BUCKET=jhipsterCouchbaseSampleApplication
-            - COUCHBASE_MASTER=jhipstercouchbasesampleapplication-couchbase
-            - AUTO_REBALANCE=false
+  jhipstercouchbasesampleapplication-couchbase:
+    build:
+      context: .
+      dockerfile: couchbase/Couchbase.Dockerfile
+    ports:
+      - 8091:8091
+      - 8092:8092
+      - 8093:8093
+      - 11210:11210
+    environment:
+      - TYPE=MASTER
+      - BUCKET=jhipsterCouchbaseSampleApplication
+  jhipstercouchbasesampleapplication-couchbase-node:
+    build:
+      context: .
+      dockerfile: couchbase/Couchbase.Dockerfile
+    environment:
+      - TYPE=WORKER
+      - BUCKET=jhipsterCouchbaseSampleApplication
+      - COUCHBASE_MASTER=jhipstercouchbasesampleapplication-couchbase
+      - AUTO_REBALANCE=false
