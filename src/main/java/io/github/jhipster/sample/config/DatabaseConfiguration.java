@@ -31,6 +31,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
@@ -62,6 +63,8 @@ public class DatabaseConfiguration {
         converters.add(BigDecimalToStringConverter.INSTANCE);
         converters.add(StringToBigDecimalConverter.INSTANCE);
         converters.add(StringToByteConverter.INSTANCE);
+        converters.add(UUIDToStringConverter.INSTANCE);
+        converters.add(StringToUUIDConverter.INSTANCE);
         return new CouchbaseCustomConversions(converters);
     }
 
@@ -151,7 +154,7 @@ public class DatabaseConfiguration {
     }
 
     /**
-     * Simple singleton to convert from {@link String} {@link byte[]} representation.
+     * Simple singleton to convert from {@link String} {@code byte[]} representation.
      */
     @ReadingConverter
     public enum StringToByteConverter implements Converter<String, byte[]> {
@@ -161,5 +164,34 @@ public class DatabaseConfiguration {
         public byte[] convert(String source) {
             return Base64.decodeBase64(source);
         }
+    }
+
+    /**
+    * Simple singleton to convert {@link UUID}s to their {@link String} representation.
+    */
+    @WritingConverter
+    public enum UUIDToStringConverter implements Converter<UUID, String> {
+
+        INSTANCE;
+
+        @Override
+        public String convert(UUID source) {
+            return source == null ? null : source.toString();
+        }
+    }
+
+    /**
+    * Simple singleton to convert from {@link String} {@link UUID} representation.
+    */
+    @ReadingConverter
+    public enum StringToUUIDConverter implements Converter<String, UUID> {
+
+        INSTANCE;
+
+        @Override
+        public UUID convert(String source) {
+            return source == null ? null : UUID.fromString(source);
+        }
+
     }
 }

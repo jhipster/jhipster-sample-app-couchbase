@@ -20,7 +20,7 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
 
     private CouchbaseProperties couchbaseProperties;
 
-    private static CouchbaseContainer<? extends CouchbaseContainer<?>> couchbaseContainer;
+    private static CouchbaseContainer couchbaseContainer;
 
     public DatabaseConfigurationIT(CouchbaseProperties couchbaseProperties) {
         this.couchbaseProperties = couchbaseProperties;
@@ -57,11 +57,11 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
         return this;
     }
 
-    private CouchbaseContainer<? extends CouchbaseContainer<?>> getCouchbaseContainer() {
+    private CouchbaseContainer getCouchbaseContainer() {
         if (couchbaseContainer != null) {
             return couchbaseContainer;
         }
-        couchbaseContainer = new CouchbaseContainer<>("couchbase:6.0.1");
+        couchbaseContainer = new CouchbaseContainer("couchbase:6.0.1");
         couchbaseContainer
             .withNewBucket(DefaultBucketSettings.builder()
                 .name(getBucketName())

@@ -1,13 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  JhipsterCouchbaseSampleApplicationSharedLibsModule,
-  JhipsterCouchbaseSampleApplicationSharedCommonModule,
-  JhiLoginModalComponent,
-  HasAnyAuthorityDirective
-} from './';
+import { JhipsterCouchbaseSampleApplicationSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
 
 @NgModule({
-  imports: [JhipsterCouchbaseSampleApplicationSharedLibsModule, JhipsterCouchbaseSampleApplicationSharedCommonModule],
+  imports: [JhipsterCouchbaseSampleApplicationSharedCommonModule],
   declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
   exports: [JhipsterCouchbaseSampleApplicationSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
