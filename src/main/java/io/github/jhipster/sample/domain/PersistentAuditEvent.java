@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Map;
 
 import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
