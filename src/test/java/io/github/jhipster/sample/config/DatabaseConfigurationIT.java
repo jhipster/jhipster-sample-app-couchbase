@@ -61,7 +61,7 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
         if (couchbaseContainer != null) {
             return couchbaseContainer;
         }
-        couchbaseContainer = new CouchbaseContainer("couchbase:6.0.2");
+        couchbaseContainer = new CouchbaseContainer("couchbase:6.0.0");
         couchbaseContainer
             .withNewBucket(DefaultBucketSettings.builder()
                 .name(getBucketName())

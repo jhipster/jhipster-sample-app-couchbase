@@ -1,6 +1,7 @@
 package io.github.jhipster.sample.web.rest;
 
 import io.github.jhipster.sample.JhipsterCouchbaseSampleApplicationApp;
+import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.sample.config.audit.AuditEventConverter;
 import io.github.jhipster.sample.domain.PersistentAuditEvent;
 import io.github.jhipster.sample.repository.PersistenceAuditEventRepository;
@@ -45,6 +46,9 @@ public class AuditResourceIT {
     private AuditEventConverter auditEventConverter;
 
     @Autowired
+    private JHipsterProperties jhipsterProperties;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -62,7 +66,7 @@ public class AuditResourceIT {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         AuditEventService auditEventService =
-            new AuditEventService(auditEventRepository, auditEventConverter);
+            new AuditEventService(auditEventRepository, auditEventConverter, jhipsterProperties);
         AuditResource auditResource = new AuditResource(auditEventService);
         this.restAuditMockMvc = MockMvcBuilders.standaloneSetup(auditResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
