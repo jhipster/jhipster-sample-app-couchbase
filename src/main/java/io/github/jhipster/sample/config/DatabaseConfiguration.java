@@ -36,8 +36,8 @@ import java.util.UUID;
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
 @EnableCouchbaseRepositories(repositoryBaseClass = CustomN1qlCouchbaseRepository.class, basePackages = "io.github.jhipster.sample.repository")
-@Import(value = CouchbaseAutoConfiguration.class)
 @EnableCouchbaseAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@Import(value = CouchbaseAutoConfiguration.class)
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
