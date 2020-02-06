@@ -16,6 +16,9 @@
 spring:
   application:
     name: jhipsterCouchbaseSampleApplication
+  jackson:
+    serialization:
+      write-durations-as-timestamps: false
   couchbase:
     bucket:
       name: jhipster
