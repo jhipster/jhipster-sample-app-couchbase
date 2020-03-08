@@ -80,6 +80,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Size(max = 20)
     @Field("reset_key")
+
     @JsonIgnore
     private String resetKey;
 

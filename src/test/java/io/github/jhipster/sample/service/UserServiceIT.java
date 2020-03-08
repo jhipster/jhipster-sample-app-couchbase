@@ -16,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
