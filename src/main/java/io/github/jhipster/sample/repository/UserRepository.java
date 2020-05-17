@@ -3,7 +3,6 @@ package io.github.jhipster.sample.repository;
 import io.github.jhipster.sample.domain.User;
 
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -30,8 +29,6 @@ public interface UserRepository extends N1qlCouchbaseRepository<User, String> {
     default Optional<User> findOneByLogin(String login) {
         return findById(User.PREFIX + ID_DELIMITER + login);
     }
-
-
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 }

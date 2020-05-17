@@ -134,7 +134,7 @@ public class AccountResourceIT {
     @Test
     public void testRegisterInvalidLogin() throws Exception {
         ManagedUserVM invalidUser = new ManagedUserVM();
-        invalidUser.setLogin("funky-log!n");// <-- invalid
+        invalidUser.setLogin("funky-log(n");// <-- invalid
         invalidUser.setPassword("password");
         invalidUser.setFirstName("Funky");
         invalidUser.setLastName("One");
@@ -417,7 +417,6 @@ public class AccountResourceIT {
         user.setEmail("save-account@example.com");
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
-
         userRepository.save(user);
 
         UserDTO userDTO = new UserDTO();
@@ -485,7 +484,6 @@ public class AccountResourceIT {
         user.setEmail("save-existing-email@example.com");
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
-
         userRepository.save(user);
 
         User anotherUser = new User();
@@ -524,7 +522,6 @@ public class AccountResourceIT {
         user.setEmail("save-existing-email-and-login@example.com");
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
-
         userRepository.save(user);
 
         UserDTO userDTO = new UserDTO();
@@ -672,12 +669,12 @@ public class AccountResourceIT {
         User user = new User();
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
-        user.setLogin("password-reset");
-        user.setEmail("password-reset@example.com");
+        user.setLogin("password-reset-upper-case");
+        user.setEmail("password-reset-upper-case@example.com");
         userRepository.save(user);
 
         restAccountMockMvc.perform(post("/api/account/reset-password/init")
-            .content("password-reset@EXAMPLE.COM")
+            .content("password-reset-upper-case@EXAMPLE.COM")
 )
             .andExpect(status().isOk());
     }

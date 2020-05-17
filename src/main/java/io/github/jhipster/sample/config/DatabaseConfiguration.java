@@ -9,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseAutoConfiguration;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -69,11 +70,11 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    public Couchmove couchmove(Bucket couchbaseBucket) {
+    public Couchmove couchmove(Bucket couchbaseBucket, CouchbaseProperties properties) {
         log.debug("Configuring Couchmove");
-        Couchmove couchMove = new Couchmove(couchbaseBucket, "config/couchmove/changelog");
-        couchMove.migrate();
-        return couchMove;
+        Couchmove couchmove = new Couchmove(couchbaseBucket, properties.getBucket().getName(), properties.getBucket().getPassword(), "config/couchmove/changelog");
+        couchmove.migrate();
+        return couchmove;
     }
 
     /**

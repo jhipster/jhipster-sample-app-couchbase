@@ -44,9 +44,9 @@ if [ "$TYPE" = "WORKER" ]; then
 
   echo "Auto Rebalance: $AUTO_REBALANCE"
   if [ "$AUTO_REBALANCE" = "true" ]; then
-    couchbase-cli rebalance --cluster=$COUCHBASE_MASTER:8091 --user=Administrator --password=password --server-add=$IP --server-add-username=Administrator --server-add-password=password
+    couchbase-cli rebalance --cluster=$COUCHBASE_MASTER:8091 --user=Administrator --password=password
   else
-    couchbase-cli server-add --cluster=$COUCHBASE_MASTER:8091 --user=Administrator --password=password --server-add=$IP --server-add-username=Administrator --server-add-password=password
+    couchbase-cli server-add --cluster=$COUCHBASE_MASTER:8091 --user=Administrator --password=password --server-add=$IP --server-add-username=Administrator --server-add-password=password --services=data,index,query
   fi;
 fi;
 
