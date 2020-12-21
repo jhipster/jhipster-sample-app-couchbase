@@ -1,17 +1,32 @@
-version: '2'
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
 services:
   jhipstercouchbasesampleapplication-app:
     image: jhipstercouchbasesampleapplication
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - SPRING_COUCHBASE_BOOTSTRAP_HOSTS=jhipstercouchbasesampleapplication-couchbase
       - SPRING_COUCHBASE_BUCKET_NAME=jhipsterCouchbaseSampleApplication
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
     ports:
-      - 8080:8080
+      - 127.0.0.1:8080:8080
   jhipstercouchbasesampleapplication-couchbase:
-    extends:
-      file: couchbase.yml
-      service: jhipstercouchbasesampleapplication-couchbase
+    build:
+      context: .
+      dockerfile: couchbase/Couchbase.Dockerfile
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:8091:8091
+      - 127.0.0.1:8092:8092
+      - 127.0.0.1:8093:8093
+      - 127.0.0.1:8094:8094
+      - 127.0.0.1:11210:11210
+    environment:
+      - BUCKET=jhipsterCouchbaseSampleApplication
+    # volumes:
+    #     - ~/volumes/jhipster/jhipstercouchbasesampleapplication/couchbase/:/opt/couchbase/var

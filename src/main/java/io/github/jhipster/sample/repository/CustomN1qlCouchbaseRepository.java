@@ -1,11 +1,10 @@
 package io.github.jhipster.sample.repository;
 
+import java.io.Serializable;
 import org.springframework.data.couchbase.core.CouchbaseOperations;
 import org.springframework.data.couchbase.core.mapping.CouchbasePersistentEntity;
 import org.springframework.data.couchbase.repository.query.CouchbaseEntityInformation;
 import org.springframework.data.couchbase.repository.support.N1qlCouchbaseRepository;
-
-import java.io.Serializable;
 
 /**
  * A custom implementation of {@code CouchbaseRepository}.
@@ -22,7 +21,8 @@ public class CustomN1qlCouchbaseRepository<T, ID extends Serializable> extends N
      */
     public CustomN1qlCouchbaseRepository(CouchbaseEntityInformation<T, String> metadata, CouchbaseOperations couchbaseOperations) {
         super(metadata, couchbaseOperations);
-        persistentEntity = getCouchbaseOperations().getConverter().getMappingContext().getPersistentEntity(getEntityInformation().getJavaType());
+        persistentEntity =
+            getCouchbaseOperations().getConverter().getMappingContext().getPersistentEntity(getEntityInformation().getJavaType());
     }
 
     @Override

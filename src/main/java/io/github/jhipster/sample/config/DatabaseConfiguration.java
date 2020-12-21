@@ -1,10 +1,16 @@
 package io.github.jhipster.sample.config;
 
-import io.github.jhipster.config.JHipsterConstants;
-
 import com.couchbase.client.java.Bucket;
 import com.github.couchmove.Couchmove;
 import io.github.jhipster.sample.repository.CustomN1qlCouchbaseRepository;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,25 +30,19 @@ import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAud
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import tech.jhipster.config.JHipsterConstants;
 
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@EnableCouchbaseRepositories(repositoryBaseClass = CustomN1qlCouchbaseRepository.class, basePackages = "io.github.jhipster.sample.repository")
+@EnableCouchbaseRepositories(
+    repositoryBaseClass = CustomN1qlCouchbaseRepository.class,
+    basePackages = "io.github.jhipster.sample.repository"
+)
 @EnableCouchbaseAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @Import(value = CouchbaseAutoConfiguration.class)
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
-
 
     @Bean
     public ValidatingCouchbaseEventListener validatingCouchbaseEventListener() {
@@ -72,7 +72,12 @@ public class DatabaseConfiguration {
     @Bean
     public Couchmove couchmove(Bucket couchbaseBucket, CouchbaseProperties properties) {
         log.debug("Configuring Couchmove");
-        Couchmove couchmove = new Couchmove(couchbaseBucket, properties.getBucket().getName(), properties.getBucket().getPassword(), "config/couchmove/changelog");
+        Couchmove couchmove = new Couchmove(
+            couchbaseBucket,
+            properties.getBucket().getName(),
+            properties.getBucket().getPassword(),
+            "config/couchmove/changelog"
+        );
         couchmove.migrate();
         return couchmove;
     }
@@ -82,7 +87,6 @@ public class DatabaseConfiguration {
      */
     @WritingConverter
     public enum ZonedDateTimeToLongConverter implements Converter<ZonedDateTime, Long> {
-
         INSTANCE;
 
         @Override
@@ -96,14 +100,12 @@ public class DatabaseConfiguration {
      */
     @ReadingConverter
     public enum NumberToLocalDateTimeConverter implements Converter<Number, ZonedDateTime> {
-
         INSTANCE;
 
         @Override
         public ZonedDateTime convert(Number source) {
             return source == null ? null : ZonedDateTime.ofInstant(new Date(source.longValue()).toInstant(), ZoneId.systemDefault());
         }
-
     }
 
     /**
@@ -168,11 +170,10 @@ public class DatabaseConfiguration {
     }
 
     /**
-    * Simple singleton to convert {@link UUID}s to their {@link String} representation.
-    */
+     * Simple singleton to convert {@link UUID}s to their {@link String} representation.
+     */
     @WritingConverter
     public enum UUIDToStringConverter implements Converter<UUID, String> {
-
         INSTANCE;
 
         @Override
@@ -182,17 +183,15 @@ public class DatabaseConfiguration {
     }
 
     /**
-    * Simple singleton to convert from {@link String} {@link UUID} representation.
-    */
+     * Simple singleton to convert from {@link String} {@link UUID} representation.
+     */
     @ReadingConverter
     public enum StringToUUIDConverter implements Converter<String, UUID> {
-
         INSTANCE;
 
         @Override
         public UUID convert(String source) {
             return source == null ? null : UUID.fromString(source);
         }
-
     }
 }

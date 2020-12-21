@@ -1,28 +1,26 @@
 package io.github.jhipster.sample.domain;
 
-import io.github.jhipster.sample.config.Constants;
+import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
+import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.USE_ATTRIBUTES;
 
 import com.couchbase.client.java.repository.annotation.Field;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.jhipster.sample.config.Constants;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 import org.springframework.data.couchbase.core.mapping.id.IdPrefix;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-
-import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
-import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.USE_ATTRIBUTES;
 
 /**
  * A user.
@@ -36,6 +34,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @IdPrefix
     private String prefix = PREFIX;
+
     @Id
     @GeneratedValue(strategy = USE_ATTRIBUTES, delimiter = ID_DELIMITER)
     private String id;
@@ -88,7 +87,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     private Set<String> authorities = new HashSet<>();
-
 
     public String getId() {
         return id;
@@ -147,7 +145,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public boolean getActivated() {
+    public boolean isActivated() {
         return activated;
     }
 
@@ -208,7 +206,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

@@ -4,6 +4,7 @@ import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.couchbase.client.java.env.CouchbaseEnvironment;
 import com.couchbase.client.java.env.DefaultCouchbaseEnvironment;
+import java.util.List;
 import org.assertj.core.util.Lists;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,6 @@ import org.springframework.data.couchbase.config.BeanNames;
 import org.springframework.data.couchbase.config.CouchbaseConfigurer;
 import org.testcontainers.couchbase.BucketDefinition;
 import org.testcontainers.couchbase.CouchbaseContainer;
-
-import java.util.List;
 
 @Configuration
 public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
@@ -64,30 +63,30 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
 
     private CouchbaseContainer getCouchbaseContainer() {
         if (couchbaseContainer == null) {
-            couchbaseContainer = new CouchbaseContainer("couchbase:6.5.1")
-                .withBucket(new BucketDefinition(getBucketName()).withQuota(100))
-                .withCredentials(getUsername(), getBucketPassword());
+            couchbaseContainer =
+                new CouchbaseContainer("couchbase:6.6.0")
+                    .withBucket(new BucketDefinition(getBucketName()).withQuota(100))
+                    .withCredentials(getUsername(), getBucketPassword());
             couchbaseContainer.start();
         }
         return couchbaseContainer;
     }
 
     private CouchbaseEnvironment getCouchbaseEnvironment() {
-         if (couchbaseEnvironment == null) {
-             couchbaseEnvironment = DefaultCouchbaseEnvironment
-                 .builder()
-                 .bootstrapCarrierDirectPort(getCouchbaseContainer().getBootstrapCarrierDirectPort())
-                 .bootstrapHttpDirectPort(getCouchbaseContainer().getBootstrapHttpDirectPort())
-                 .build();
-         }
-         return couchbaseEnvironment;
+        if (couchbaseEnvironment == null) {
+            couchbaseEnvironment =
+                DefaultCouchbaseEnvironment
+                    .builder()
+                    .bootstrapCarrierDirectPort(getCouchbaseContainer().getBootstrapCarrierDirectPort())
+                    .bootstrapHttpDirectPort(getCouchbaseContainer().getBootstrapHttpDirectPort())
+                    .build();
+        }
+        return couchbaseEnvironment;
     }
 
     private CouchbaseCluster getCouchbaseCluster() {
         if (couchbaseCluster == null) {
-            couchbaseCluster = CouchbaseCluster.create(couchbaseEnvironment(),
-                getCouchbaseContainer().getContainerIpAddress()
-            );
+            couchbaseCluster = CouchbaseCluster.create(couchbaseEnvironment(), getCouchbaseContainer().getContainerIpAddress());
         }
         return couchbaseCluster;
     }
