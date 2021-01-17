@@ -27,7 +27,5 @@ public interface UserRepository extends N1qlCouchbaseRepository<User, String> {
         return findById(User.PREFIX + ID_DELIMITER + login);
     }
 
-    Page<User> findAll(Pageable pageable);
-
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
 }
