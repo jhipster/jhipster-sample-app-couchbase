@@ -29,4 +29,4 @@ services:
     environment:
       - BUCKET=jhipsterCouchbaseSampleApplication
     # volumes:
-    #     - ~/volumes/jhipster/jhipstercouchbasesampleapplication/couchbase/:/opt/couchbase/var
+    #   - ~/volumes/jhipster/jhipstercouchbasesampleapplication/couchbase/:/opt/couchbase/var
