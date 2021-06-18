@@ -1,4 +1,4 @@
-FROM couchbase:6.6.1
+FROM couchbase:6.6.2
 
 COPY couchbase/scripts/configure-node.sh /
 
