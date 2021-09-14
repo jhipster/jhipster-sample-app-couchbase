@@ -32,10 +32,9 @@ spring:
     livereload:
       enabled: false
   couchbase:
-    bootstrap-hosts: localhost
-    bucket:
-      name: jhipsterCouchbaseSampleApplication
-      password: password
+    connection-string: couchbase://localhost
+    username: Administrator
+    password: password
   mail:
     host: localhost
     port: 25
@@ -81,6 +80,9 @@ jhipster:
   http:
     cache: # Used by the CachingHttpHeadersFilter
       timeToLiveInDays: 1461
+  database:
+    couchbase:
+      bucket-name: jhipsterCouchbaseSampleApplication
   security:
     authentication:
       jwt:

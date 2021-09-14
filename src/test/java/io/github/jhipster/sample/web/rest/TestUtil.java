@@ -61,7 +61,7 @@ public final class TestUtil {
     }
 
     /**
-     * Mock user authentication for Spring SpEL expression used in {@link io.github.jhipster.sample.repository.N1qlCouchbaseRepository}.
+     * Mock user authentication
      */
     public static void mockAuthentication() {
         TestSecurityContextHolder.getContext().setAuthentication(new TestingAuthenticationToken("user", null));

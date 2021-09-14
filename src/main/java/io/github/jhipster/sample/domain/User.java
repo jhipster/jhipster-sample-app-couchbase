@@ -3,7 +3,6 @@ package io.github.jhipster.sample.domain;
 import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
 import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.USE_ATTRIBUTES;
 
-import com.couchbase.client.java.repository.annotation.Field;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.jhipster.sample.config.Constants;
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 import org.springframework.data.couchbase.core.mapping.id.IdPrefix;
@@ -51,11 +51,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String password;
 
     @Size(max = 50)
-    @Field("first_name")
+    @Field
     private String firstName;
 
     @Size(max = 50)
-    @Field("last_name")
+    @Field
     private String lastName;
 
     @Email
@@ -65,24 +65,24 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private boolean activated = false;
 
     @Size(min = 2, max = 10)
-    @Field("lang_key")
+    @Field
     private String langKey;
 
     @Size(max = 256)
-    @Field("image_url")
+    @Field
     private String imageUrl;
 
     @Size(max = 20)
-    @Field("activation_key")
+    @Field
     @JsonIgnore
     private String activationKey;
 
     @Size(max = 20)
-    @Field("reset_key")
+    @Field
     @JsonIgnore
     private String resetKey;
 
-    @Field("reset_date")
+    @Field
     private Instant resetDate = null;
 
     @JsonIgnore

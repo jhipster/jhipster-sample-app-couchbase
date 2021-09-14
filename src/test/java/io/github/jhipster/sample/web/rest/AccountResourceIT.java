@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import io.github.jhipster.sample.CouchbaseTestContainerExtension;
 import io.github.jhipster.sample.IntegrationTest;
 import io.github.jhipster.sample.config.Constants;
 import io.github.jhipster.sample.domain.User;
@@ -21,6 +22,7 @@ import java.time.Instant;
 import java.util.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -64,12 +66,10 @@ class AccountResourceIT {
         restAccountMockMvc
             .perform(
                 get("/api/authenticate")
-                    .with(
-                        request -> {
-                            request.setRemoteUser(TEST_USER_LOGIN);
-                            return request;
-                        }
-                    )
+                    .with(request -> {
+                        request.setRemoteUser(TEST_USER_LOGIN);
+                        return request;
+                    })
                     .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isOk())

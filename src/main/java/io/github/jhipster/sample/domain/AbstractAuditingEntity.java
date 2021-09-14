@@ -1,6 +1,5 @@
 package io.github.jhipster.sample.domain;
 
-import com.couchbase.client.java.repository.annotation.Field;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
@@ -8,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified, created by,
@@ -18,22 +18,22 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @CreatedBy
-    @Field("created_by")
+    @Field
     @JsonIgnore
     private String createdBy;
 
     @CreatedDate
-    @Field("created_date")
+    @Field
     @JsonIgnore
     private Instant createdDate = Instant.now();
 
     @LastModifiedBy
-    @Field("last_modified_by")
+    @Field
     @JsonIgnore
     private String lastModifiedBy;
 
     @LastModifiedDate
-    @Field("last_modified_date")
+    @Field
     @JsonIgnore
     private Instant lastModifiedDate = Instant.now();
 
