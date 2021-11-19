@@ -8,7 +8,7 @@ services:
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - SPRING_COUCHBASE_CONNECTION_STRING=jhipstercouchbasesampleapplication-couchbase
-      - JHIPSTER_COUCHBASE_BUCKET_NAME=jhipsterCouchbaseSampleApplication
+      - JHIPSTER_DATABASE_COUCHBASE_BUCKET_NAME=jhipsterCouchbaseSampleApplication
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
