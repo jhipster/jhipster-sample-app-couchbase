@@ -83,6 +83,7 @@ jhipster:
   database:
     couchbase:
       bucket-name: jhipsterCouchbaseSampleApplication
+      scope-name: jhipsterCouchbaseSampleApplication
   security:
     authentication:
       jwt:

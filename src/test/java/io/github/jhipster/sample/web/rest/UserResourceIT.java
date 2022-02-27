@@ -41,7 +41,7 @@ class UserResourceIT {
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final String UPDATED_LOGIN = "jhipster";
 
-    private static final String DEFAULT_ID = User.PREFIX + DEFAULT_LOGIN;
+    private static final String DEFAULT_ID = DEFAULT_LOGIN;
 
     private static final String DEFAULT_PASSWORD = "passjohndoe";
     private static final String UPDATED_PASSWORD = "passjhipster";

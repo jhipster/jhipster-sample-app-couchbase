@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
-    private static final String DEFAULT_ID = User.PREFIX + DEFAULT_LOGIN;
+    private static final String DEFAULT_ID = DEFAULT_LOGIN;
 
     private UserMapper userMapper;
     private User user;

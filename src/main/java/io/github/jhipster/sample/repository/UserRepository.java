@@ -1,17 +1,11 @@
 package io.github.jhipster.sample.repository;
 
-import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
-
-import com.couchbase.client.java.query.QueryScanConsistency;
 import io.github.jhipster.sample.domain.User;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.couchbase.repository.Query;
-import org.springframework.data.couchbase.repository.ScanConsistency;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,40 +13,43 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends JHipsterCouchbaseRepository<User, String> {
-    // @ScanConsistency is to fix index issues with Spring Data Couchbase
-    // https://github.com/spring-projects/spring-data-couchbase/issues/897
+    default Optional<User> findOneByActivationKey(String activationKey) {
+        return findIdByActivationKey(activationKey).map(User::getId).flatMap(this::findById);
+    }
 
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    Optional<User> findOneByActivationKey(String activationKey);
+    @Query(FIND_IDS_QUERY + " AND activationKey = $1")
+    Optional<User> findIdByActivationKey(String activationKey);
 
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    List<User> findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime);
+    default List<User> findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime) {
+        return findAllById(toIds(findAllIdsByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(dateTime)));
+    }
 
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    Optional<User> findOneByResetKey(String resetKey);
+    @Query(FIND_IDS_QUERY + " AND activated = false AND activationKey IS NOT NULL AND createdDate < $1")
+    List<User> findAllIdsByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime);
 
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    @Query("#{#n1ql.selectEntity} WHERE LOWER(email) = LOWER($1) AND #{#n1ql.filter}")
-    Optional<User> findOneByEmailIgnoreCase(String email);
+    default Optional<User> findOneByResetKey(String resetKey) {
+        return findIdByResetKey(resetKey).map(User::getId).flatMap(this::findById);
+    }
 
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
+    @Query(FIND_IDS_QUERY + " AND resetKey = $1")
+    Optional<User> findIdByResetKey(String resetKey);
+
+    default Optional<User> findOneByEmailIgnoreCase(String email) {
+        return findIdByEmailIgnoreCase(email).map(User::getId).flatMap(this::findById);
+    }
+
+    @Query(FIND_IDS_QUERY + " AND LOWER(email) = LOWER($1)")
+    Optional<User> findIdByEmailIgnoreCase(String email);
+
     default Optional<User> findOneByLogin(String login) {
-        return findById(User.PREFIX + ID_DELIMITER + login);
+        return findById(login);
     }
 
     default Page<User> findAllByActivatedIsTrue(Pageable pageable) {
-        return new PageImpl<>(
-            findAllByActivatedIsTrue(JHipsterCouchbaseRepository.pageableStatement(pageable)),
-            pageable,
-            countAllByActivatedIsTrue()
-        );
+        Page<User> page = findAllIdsByActivatedIsTrue(pageable);
+        return new PageImpl<>(findAllById(toIds(page.getContent())), pageable, page.getTotalElements());
     }
 
-    @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND activated = true #{[0]}")
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    List<User> findAllByActivatedIsTrue(String pageableStatement);
-
-    @Query("SELECT COUNT(*) as count FROM #{#n1ql.bucket} WHERE #{#n1ql.filter} AND activated = true")
-    @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
-    Long countAllByActivatedIsTrue();
+    @Query(FIND_IDS_QUERY + " AND activated = true")
+    Page<User> findAllIdsByActivatedIsTrue(Pageable pageable);
 }

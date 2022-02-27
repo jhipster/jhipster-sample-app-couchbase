@@ -2,11 +2,11 @@ package io.github.jhipster.sample.config;
 
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.couchbase.client.java.Collection;
 import com.github.couchmove.Couchmove;
-import io.github.jhipster.sample.config.couchbase.CustomCouchbaseRepositoryFactoryBean;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -29,7 +29,6 @@ import org.springframework.data.couchbase.core.mapping.CouchbaseMappingContext;
 import org.springframework.data.couchbase.core.mapping.event.ValidatingCouchbaseEventListener;
 import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import tech.jhipster.config.JHipsterConstants;
@@ -38,12 +37,12 @@ import tech.jhipster.config.JHipsterProperties;
 @Configuration
 @EnableConfigurationProperties(CouchbaseProperties.class)
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@EnableCouchbaseRepositories(
-    basePackages = "io.github.jhipster.sample.repository",
-    repositoryFactoryBeanClass = CustomCouchbaseRepositoryFactoryBean.class
-)
+@EnableCouchbaseRepositories(basePackages = "io.github.jhipster.sample.repository")
 @EnableCouchbaseAuditing(auditorAwareRef = "springSecurityAuditorAware", dateTimeProviderRef = "")
 public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
+
+    private static final String CHANGELOG_COLLECTION = "changelog";
+    private static final String TYPE_KEY = "type";
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
@@ -118,23 +117,32 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
         return mappingCouchbaseConverter;
     }
 
-    /**
-     * Workaround for Couchbase overriding SB default jackson mapper: https://github.com/spring-projects/spring-data-couchbase/issues/1209
-     */
-    @Bean
-    @Primary
-    ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        return builder.createXmlMapper(false).build();
-    }
-
     @Bean
     public Couchmove couchmove(Cluster cluster) {
         log.debug("Configuring Couchmove");
         Bucket bucket = cluster.bucket(getBucketName());
-        Couchmove couchmove = new Couchmove(bucket, cluster, "config/couchmove/changelog");
+        Collection collection = bucket.scope(getScopeName()).collection(CHANGELOG_COLLECTION);
+        Couchmove couchmove = new Couchmove(collection, cluster, "config/couchmove/changelog");
         couchmove.migrate();
-        couchmove.buildN1qlDeferredIndexes();
+        couchmove.buildN1qlDeferredIndexes(getScopeName());
         return couchmove;
+    }
+
+    @Bean
+    @Profile({ JHipsterConstants.SPRING_PROFILE_TEST, JHipsterConstants.SPRING_PROFILE_E2E })
+    public Couchmove waitForIndexes(Couchmove couchmove) {
+        couchmove.waitForN1qlIndexes(getScopeName(), Duration.ofSeconds(60));
+        return couchmove;
+    }
+
+    @Override
+    public String typeKey() {
+        return TYPE_KEY;
+    }
+
+    @Override
+    protected String getScopeName() {
+        return jHipsterProperties.getDatabase().getCouchbase().getScopeName();
     }
 
     /**

@@ -1,6 +1,7 @@
 package io.github.jhipster.sample.domain;
 
 import static io.github.jhipster.sample.config.Constants.ID_DELIMITER;
+import static io.github.jhipster.sample.domain.User.TYPE_NAME;
 import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.USE_ATTRIBUTES;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,24 +17,24 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
-import org.springframework.data.couchbase.core.mapping.id.IdPrefix;
+import org.springframework.data.couchbase.repository.Collection;
 
 /**
  * A user.
  */
 @Document
+@TypeAlias(TYPE_NAME)
+@Collection(TYPE_NAME)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String PREFIX = "user";
-
-    @IdPrefix
-    private String prefix = PREFIX;
+    public static final String TYPE_NAME = "user";
 
     @Id
     @GeneratedValue(strategy = USE_ATTRIBUTES, delimiter = ID_DELIMITER)

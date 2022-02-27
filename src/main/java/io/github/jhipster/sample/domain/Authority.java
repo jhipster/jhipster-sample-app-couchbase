@@ -1,19 +1,27 @@
 package io.github.jhipster.sample.domain;
 
+import static io.github.jhipster.sample.domain.Authority.TYPE_NAME;
+
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.repository.Collection;
 
 /**
  * An authority (a security role) used by Spring Security.
  */
 @Document
+@TypeAlias(TYPE_NAME)
+@Collection(TYPE_NAME)
 public class Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String TYPE_NAME = "authority";
 
     @NotNull
     @Size(max = 50)

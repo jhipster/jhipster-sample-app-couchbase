@@ -1,8 +1,0 @@
-CREATE INDEX type ON `${bucket}`(`_class`)
-    WITH { "defer_build" : true };
-
-CREATE INDEX user_mail ON `${bucket}`(email)
-    WHERE `_class` = "io.github.jhipster.sample.domain.User"
-    WITH { "defer_build" : true };
-
-  
