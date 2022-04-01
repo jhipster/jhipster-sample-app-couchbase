@@ -1,5 +1,0 @@
-CREATE COLLECTION `${bucket}`.`${scope}`.`bankAccount`;
-
-CREATE INDEX `bankAccount_type` ON `${bucket}`.`${scope}`.`bankAccount`(type)
-    WHERE `type` = "bankAccount"
-    WITH { "defer_build" : true };
