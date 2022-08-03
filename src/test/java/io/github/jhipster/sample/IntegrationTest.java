@@ -1,12 +1,14 @@
 package io.github.jhipster.sample;
 
 import io.github.jhipster.sample.JhipsterCouchbaseSampleApplicationApp;
+import io.github.jhipster.sample.config.AsyncSyncConfiguration;
+import io.github.jhipster.sample.config.EmbeddedCouchbase;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import tech.jhipster.config.JHipsterConstants;
 
@@ -15,8 +17,9 @@ import tech.jhipster.config.JHipsterConstants;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = JhipsterCouchbaseSampleApplicationApp.class)
-@ExtendWith(CouchbaseTestContainerExtension.class)
+@SpringBootTest(classes = { JhipsterCouchbaseSampleApplicationApp.class, AsyncSyncConfiguration.class })
+@EmbeddedCouchbase
 @ActiveProfiles(JHipsterConstants.SPRING_PROFILE_TEST)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public @interface IntegrationTest {
 }
