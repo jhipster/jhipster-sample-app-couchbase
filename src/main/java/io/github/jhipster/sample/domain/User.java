@@ -30,7 +30,7 @@ import org.springframework.data.couchbase.repository.Collection;
 @Document
 @TypeAlias(TYPE_NAME)
 @Collection(TYPE_NAME)
-public class User extends AbstractAuditingEntity implements Serializable {
+public class User extends AbstractAuditingEntity<String> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

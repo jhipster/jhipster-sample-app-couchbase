@@ -1,6 +1,6 @@
 package io.github.jhipster.sample.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
 import org.springframework.data.annotation.CreatedBy;
@@ -13,28 +13,27 @@ import org.springframework.data.couchbase.core.mapping.Field;
  * Base abstract class for entities which will hold definitions for created, last modified, created by,
  * last modified by attributes.
  */
-public abstract class AbstractAuditingEntity implements Serializable {
+@JsonIgnoreProperties(value = { "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate" }, allowGetters = true)
+public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public abstract T getId();
+
     @CreatedBy
     @Field
-    @JsonIgnore
     private String createdBy;
 
     @CreatedDate
     @Field
-    @JsonIgnore
     private Instant createdDate = Instant.now();
 
     @LastModifiedBy
     @Field
-    @JsonIgnore
     private String lastModifiedBy;
 
     @LastModifiedDate
     @Field
-    @JsonIgnore
     private Instant lastModifiedDate = Instant.now();
 
     public String getCreatedBy() {
