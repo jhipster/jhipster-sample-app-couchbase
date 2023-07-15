@@ -1,26 +1,26 @@
 import { IBankAccount, NewBankAccount } from './bank-account.model';
 
 export const sampleWithRequiredData: IBankAccount = {
-  id: '18e4d38a-cf45-4e49-bd7c-6a66f6e7a7c5',
+  id: '18e4d38a-cf45-4e49-9bd7-c6a66f6e7a7c',
   name: 'Azerbaijan',
-  balance: 25837,
+  balance: 8466,
 };
 
 export const sampleWithPartialData: IBankAccount = {
-  id: '042e4e7f-490c-4bb4-a3d1-94240c23fdbd',
-  name: 'maroon Chips',
-  balance: 78195,
+  id: '042e4e7f-490c-4bb4-be3d-194240c23fdb',
+  name: 'Tools Tasty',
+  balance: 25623,
 };
 
 export const sampleWithFullData: IBankAccount = {
-  id: '255a9fa0-aa85-418e-b0c6-93dfaf9dcfb9',
+  id: '255a9fa0-aa85-418e-a30c-693dfaf9dcfb',
   name: 'silver gray',
-  balance: 93394,
+  balance: 30603,
 };
 
 export const sampleWithNewData: NewBankAccount = {
-  name: 'Mercedes Oregon',
-  balance: 81177,
+  name: 'Mercedes Schroeder',
+  balance: 18410,
   id: null,
 };
 
