@@ -188,7 +188,7 @@ class BankAccountResourceIT {
         int databaseSizeBeforeUpdate = bankAccountRepository.findAll().size();
 
         // Update the bankAccount
-        BankAccount updatedBankAccount = bankAccountRepository.findById(bankAccount.getId()).orElseThrow();
+        BankAccount updatedBankAccount = bankAccountRepository.findById(bankAccount.getId()).get();
         updatedBankAccount.name(UPDATED_NAME).balance(UPDATED_BALANCE);
 
         restBankAccountMockMvc
@@ -275,6 +275,8 @@ class BankAccountResourceIT {
         BankAccount partialUpdatedBankAccount = new BankAccount();
         partialUpdatedBankAccount.setId(bankAccount.getId());
 
+        partialUpdatedBankAccount.name(UPDATED_NAME).balance(UPDATED_BALANCE);
+
         restBankAccountMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedBankAccount.getId())
@@ -288,8 +290,8 @@ class BankAccountResourceIT {
         List<BankAccount> bankAccountList = bankAccountRepository.findAll();
         assertThat(bankAccountList).hasSize(databaseSizeBeforeUpdate);
         BankAccount testBankAccount = bankAccountList.get(bankAccountList.size() - 1);
-        assertThat(testBankAccount.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testBankAccount.getBalance()).isEqualByComparingTo(DEFAULT_BALANCE);
+        assertThat(testBankAccount.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testBankAccount.getBalance()).isEqualByComparingTo(UPDATED_BALANCE);
     }
 
     @Test

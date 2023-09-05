@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import com.couchbase.client.java.query.QueryScanConsistency;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.data.couchbase.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -31,7 +32,7 @@ public interface JHipsterCouchbaseRepository<T, ID> extends CouchbaseRepository<
                     }
                     return order.withProperty(format("%s.%s", prefix, property));
                 })
-                .toList()
+                .collect(Collectors.toList())
         );
         return new org.springframework.data.couchbase.core.query.Query()
             .limit(pageable.getPageSize())
@@ -68,6 +69,6 @@ public interface JHipsterCouchbaseRepository<T, ID> extends CouchbaseRepository<
 
     @SuppressWarnings("unchecked")
     default List<ID> toIds(List<T> entities) {
-        return entities.stream().map(entity -> (ID) getEntityInformation().getId(entity)).toList();
+        return entities.stream().map(entity -> (ID) getEntityInformation().getId(entity)).collect(Collectors.toList());
     }
 }
