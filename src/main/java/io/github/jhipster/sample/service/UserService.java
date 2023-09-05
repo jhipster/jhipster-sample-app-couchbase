@@ -12,11 +12,9 @@ import io.github.jhipster.sample.service.dto.UserDTO;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -276,6 +274,6 @@ public class UserService {
      * @return a list of all the authorities.
      */
     public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+        return authorityRepository.findAll().stream().map(Authority::getName).toList();
     }
 }

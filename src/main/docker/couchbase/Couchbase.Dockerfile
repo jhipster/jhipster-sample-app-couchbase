@@ -1,4 +1,4 @@
-FROM couchbase/server:7.0.3
+FROM couchbase/server:7.2.0
 
 COPY couchbase/scripts/configure-node.sh /
 

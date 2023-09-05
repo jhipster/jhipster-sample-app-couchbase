@@ -1,7 +1,7 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-version: '3.8'
+name: jhipstercouchbasesampleapplication
 services:
-  jhipstercouchbasesampleapplication-couchbase:
+  couchbase:
     build:
       context: .
       dockerfile: couchbase/Couchbase.Dockerfile
@@ -15,5 +15,10 @@ services:
       - 127.0.0.1:11210:11210
     environment:
       - BUCKET=jhipsterCouchbaseSampleApplication
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8091/ui/index.html']
+      interval: 5s
+      timeout: 5s
+      retries: 10
     # volumes:
     #   - ~/volumes/jhipster/jhipstercouchbasesampleapplication/couchbase/:/opt/couchbase/var

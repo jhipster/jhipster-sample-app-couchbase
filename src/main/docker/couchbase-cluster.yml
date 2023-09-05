@@ -1,7 +1,7 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-version: '3.8'
+name: jhipstercouchbasesampleapplication
 services:
-  jhipstercouchbasesampleapplication-couchbase:
+  couchbase:
     build:
       context: .
       dockerfile: couchbase/Couchbase.Dockerfile
@@ -16,7 +16,7 @@ services:
     environment:
       - TYPE=MASTER
       - BUCKET=jhipsterCouchbaseSampleApplication
-  jhipstercouchbasesampleapplication-couchbase-node:
+  couchbase-node:
     build:
       context: .
       dockerfile: couchbase/Couchbase.Dockerfile

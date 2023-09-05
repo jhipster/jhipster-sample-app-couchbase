@@ -1,6 +1,5 @@
 package io.github.jhipster.sample;
 
-import io.github.jhipster.sample.JhipsterCouchbaseSampleApplicationApp;
 import io.github.jhipster.sample.config.AsyncSyncConfiguration;
 import io.github.jhipster.sample.config.EmbeddedCouchbase;
 import java.lang.annotation.ElementType;

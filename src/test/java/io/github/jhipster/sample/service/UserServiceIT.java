@@ -4,10 +4,8 @@ import static io.github.jhipster.sample.web.rest.TestUtil.mockAuthentication;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.jhipster.sample.IntegrationTest;
-import io.github.jhipster.sample.config.Constants;
 import io.github.jhipster.sample.domain.User;
 import io.github.jhipster.sample.repository.UserRepository;
-import io.github.jhipster.sample.service.dto.AdminUserDTO;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -16,9 +14,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.test.context.support.WithAnonymousUser;
 import tech.jhipster.security.RandomUtil;
 
 /**
