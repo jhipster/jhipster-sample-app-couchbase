@@ -30,8 +30,9 @@ public class TestContainersSpringContextCustomizerFactory implements ContextCust
                     beanFactory.registerSingleton(CouchbaseTestContainer.class.getName(), couchbaseBean);
                     // ((DefaultListableBeanFactory)beanFactory).registerDisposableBean(CouchbaseTestContainer.class.getName(), couchbaseBean);
                 }
-                testValues =
-                    testValues.and("spring.couchbase.connection-string=" + couchbaseBean.getCouchbaseContainer().getConnectionString());
+                testValues = testValues.and(
+                    "spring.couchbase.connection-string=" + couchbaseBean.getCouchbaseContainer().getConnectionString()
+                );
                 testValues = testValues.and("spring.couchbase.username=" + couchbaseBean.getCouchbaseContainer().getUsername());
                 testValues = testValues.and("spring.couchbase.password=" + couchbaseBean.getCouchbaseContainer().getPassword());
                 testValues = testValues.and("jhipster.database.couchbase.bucket-name=" + couchbaseBean.getBucketName());
