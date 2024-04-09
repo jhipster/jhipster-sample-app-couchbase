@@ -8,7 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import tech.jhipster.config.JHipsterConstants;
 
@@ -20,6 +19,5 @@ import tech.jhipster.config.JHipsterConstants;
 @SpringBootTest(classes = { JhipsterCouchbaseSampleApplicationApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedCouchbase
 @ActiveProfiles(JHipsterConstants.SPRING_PROFILE_TEST)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public @interface IntegrationTest {
 }
