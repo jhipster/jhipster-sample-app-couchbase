@@ -12,7 +12,7 @@ import org.testcontainers.utility.DockerImageName;
 public class CouchbaseTestContainer implements InitializingBean, DisposableBean {
 
     private CouchbaseContainer couchbaseContainer;
-    private static final Logger log = LoggerFactory.getLogger(CouchbaseTestContainer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CouchbaseTestContainer.class);
 
     @Override
     public void destroy() {
@@ -28,12 +28,12 @@ public class CouchbaseTestContainer implements InitializingBean, DisposableBean 
     @Override
     public void afterPropertiesSet() {
         if (null == couchbaseContainer) {
-            DockerImageName dockerImage = DockerImageName.parse("couchbase/server:7.6.1").asCompatibleSubstituteFor("couchbase/server");
+            DockerImageName dockerImage = DockerImageName.parse("couchbase/server:7.6.2").asCompatibleSubstituteFor("couchbase/server");
             couchbaseContainer = new CouchbaseContainer(dockerImage)
                 .withBucket(new BucketDefinition(getBucketName()))
                 .withCredentials("user", "password")
                 .withServiceQuota(CouchbaseService.SEARCH, 1024)
-                .withLogConsumer(new Slf4jLogConsumer(log))
+                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .withStartupTimeout(Duration.ofMinutes(15))
                 .withReuse(true);
         }

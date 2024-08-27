@@ -62,8 +62,7 @@ class BankAccountResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BankAccount createEntity() {
-        BankAccount bankAccount = new BankAccount().name(DEFAULT_NAME).balance(DEFAULT_BALANCE);
-        return bankAccount;
+        return new BankAccount().name(DEFAULT_NAME).balance(DEFAULT_BALANCE);
     }
 
     /**
@@ -73,8 +72,7 @@ class BankAccountResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BankAccount createUpdatedEntity() {
-        BankAccount bankAccount = new BankAccount().name(UPDATED_NAME).balance(UPDATED_BALANCE);
-        return bankAccount;
+        return new BankAccount().name(UPDATED_NAME).balance(UPDATED_BALANCE);
     }
 
     @BeforeEach

@@ -40,9 +40,6 @@ class UserResourceIT {
 
     private static final String DEFAULT_ID = DEFAULT_LOGIN;
 
-    private static final String DEFAULT_PASSWORD = "passjohndoe";
-    private static final String UPDATED_PASSWORD = "passjhipster";
-
     private static final String DEFAULT_EMAIL = "johndoe@localhost";
     private static final String UPDATED_EMAIL = "jhipster@localhost";
 

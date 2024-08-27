@@ -27,8 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @IntegrationTest
 class PublicUserResourceIT {
 
-    private static final String DEFAULT_LOGIN = "johndoe";
-
     @Autowired
     private UserRepository userRepository;
 
