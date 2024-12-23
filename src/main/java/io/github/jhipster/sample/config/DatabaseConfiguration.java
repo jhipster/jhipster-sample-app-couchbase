@@ -15,17 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
-import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.converter.GenericConverter;
-import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.config.BeanNames;
 import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
-import org.springframework.data.couchbase.core.convert.MappingCouchbaseConverter;
-import org.springframework.data.couchbase.core.mapping.CouchbaseMappingContext;
 import org.springframework.data.couchbase.core.mapping.event.ValidatingCouchbaseEventListener;
 import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
@@ -102,19 +97,6 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
         converters.add(UUIDToStringConverter.INSTANCE);
         converters.add(StringToUUIDConverter.INSTANCE);
         return new CouchbaseCustomConversions(converters);
-    }
-
-    @Override
-    public MappingCouchbaseConverter mappingCouchbaseConverter(
-        CouchbaseMappingContext couchbaseMappingContext,
-        CouchbaseCustomConversions couchbaseCustomConversions
-    ) {
-        MappingCouchbaseConverter mappingCouchbaseConverter = super.mappingCouchbaseConverter(
-            couchbaseMappingContext,
-            couchbaseCustomConversions
-        );
-        ((GenericConversionService) mappingCouchbaseConverter.getConversionService()).addConverter(StringToObjectConverter.INSTANCE);
-        return mappingCouchbaseConverter;
     }
 
     @Bean
@@ -255,20 +237,6 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
         @Override
         public UUID convert(String source) {
             return source == null ? null : UUID.fromString(source);
-        }
-    }
-
-    public enum StringToObjectConverter implements GenericConverter {
-        INSTANCE;
-
-        @Override
-        public Set<ConvertiblePair> getConvertibleTypes() {
-            return Collections.singleton(new ConvertiblePair(String.class, Object.class));
-        }
-
-        @Override
-        public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-            return null;
         }
     }
 }

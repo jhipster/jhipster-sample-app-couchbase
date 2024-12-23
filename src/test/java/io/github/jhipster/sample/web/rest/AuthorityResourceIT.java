@@ -156,7 +156,7 @@ class AuthorityResourceIT {
     void deleteAuthority() throws Exception {
         // Initialize the database
         authority.setName(UUID.randomUUID().toString());
-        insertedAuthority = authorityRepository.save(authority);
+        authorityRepository.save(authority);
 
         long databaseSizeBeforeDelete = getRepositoryCount();
 

@@ -14,7 +14,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 @ScanConsistency(query = QueryScanConsistency.REQUEST_PLUS)
 public interface JHipsterCouchbaseRepository<T, ID> extends CouchbaseRepository<T, ID> {
-    String FIND_IDS_QUERY = "SELECT meta().id as __id, 0 as __cas FROM #{#n1ql.bucket} WHERE #{#n1ql.filter}";
+    String FIND_IDS_QUERY =
+        "SELECT meta().id as __id, 0 as __cas FROM #{#n1ql.bucket}.#{#n1ql.scope}.#{#n1ql.collection} WHERE #{#n1ql.filter}";
 
     static String pageableStatement(Pageable pageable, String prefix) {
         Sort sort = Sort.by(

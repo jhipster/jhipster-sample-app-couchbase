@@ -88,7 +88,7 @@ class UserResourceIT {
     public static User createEntity() {
         User persistUser = new User();
         persistUser.setLogin(DEFAULT_LOGIN);
-        persistUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
+        persistUser.setPassword(RandomStringUtils.insecure().nextAlphanumeric(60));
         persistUser.setActivated(true);
         persistUser.setEmail(DEFAULT_EMAIL);
         persistUser.setFirstName(DEFAULT_FIRSTNAME);
@@ -357,7 +357,7 @@ class UserResourceIT {
 
         User anotherUser = new User();
         anotherUser.setLogin("jhipster");
-        anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
+        anotherUser.setPassword(RandomStringUtils.insecure().nextAlphanumeric(60));
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setFirstName("java");
@@ -396,7 +396,7 @@ class UserResourceIT {
 
         User anotherUser = new User();
         anotherUser.setLogin("jhipster");
-        anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
+        anotherUser.setPassword(RandomStringUtils.insecure().nextAlphanumeric(60));
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setFirstName("java");

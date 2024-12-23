@@ -28,7 +28,7 @@ public class CouchbaseTestContainer implements InitializingBean, DisposableBean 
     @Override
     public void afterPropertiesSet() {
         if (null == couchbaseContainer) {
-            DockerImageName dockerImage = DockerImageName.parse("couchbase/server:7.6.3").asCompatibleSubstituteFor("couchbase/server");
+            DockerImageName dockerImage = DockerImageName.parse("couchbase/server:7.6.4").asCompatibleSubstituteFor("couchbase/server");
             couchbaseContainer = new CouchbaseContainer(dockerImage)
                 .withBucket(new BucketDefinition(getBucketName()))
                 .withCredentials("user", "password")

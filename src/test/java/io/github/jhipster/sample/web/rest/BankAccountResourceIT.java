@@ -390,7 +390,7 @@ class BankAccountResourceIT {
     @Test
     void deleteBankAccount() throws Exception {
         // Initialize the database
-        insertedBankAccount = bankAccountRepository.save(bankAccount);
+        bankAccountRepository.save(bankAccount);
 
         long databaseSizeBeforeDelete = getRepositoryCount();
 

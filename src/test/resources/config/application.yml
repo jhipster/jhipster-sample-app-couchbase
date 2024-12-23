@@ -16,7 +16,6 @@
 spring:
   application:
     name: jhipsterCouchbaseSampleApplication
-  cloud:
   jackson:
     serialization:
       write-durations-as-timestamps: false
