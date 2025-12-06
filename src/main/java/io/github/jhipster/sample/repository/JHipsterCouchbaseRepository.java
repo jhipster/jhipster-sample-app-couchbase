@@ -69,6 +69,9 @@ public interface JHipsterCouchbaseRepository<T, ID> extends CouchbaseRepository<
 
     @SuppressWarnings("unchecked")
     default List<ID> toIds(List<T> entities) {
-        return entities.stream().map(entity -> (ID) getEntityInformation().getId(entity)).toList();
+        return entities
+            .stream()
+            .map(entity -> (ID) getEntityInformation().getId(entity))
+            .toList();
     }
 }

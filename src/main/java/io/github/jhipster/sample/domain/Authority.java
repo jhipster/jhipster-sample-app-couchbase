@@ -5,6 +5,7 @@ import static io.github.jhipster.sample.domain.Authority.TYPE_NAME;
 import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.UNIQUE;
 
 import jakarta.validation.constraints.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import org.springframework.data.annotation.Id;
@@ -22,6 +23,7 @@ import org.springframework.data.couchbase.repository.Collection;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Authority implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public static final String TYPE_NAME = "authority";

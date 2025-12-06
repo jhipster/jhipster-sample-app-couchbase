@@ -5,6 +5,7 @@ import static io.github.jhipster.sample.domain.BankAccount.TYPE_NAME;
 import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.UNIQUE;
 
 import jakarta.validation.constraints.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,7 @@ import org.springframework.data.couchbase.repository.Collection;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class BankAccount implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public static final String TYPE_NAME = "bankAccount";

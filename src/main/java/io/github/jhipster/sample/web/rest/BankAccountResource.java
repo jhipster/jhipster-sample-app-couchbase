@@ -29,7 +29,7 @@ public class BankAccountResource {
 
     private static final String ENTITY_NAME = "bankAccount";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${jhipster.clientApp.name:jhipsterCouchbaseSampleApplication}")
     private String applicationName;
 
     private final BankAccountRepository bankAccountRepository;

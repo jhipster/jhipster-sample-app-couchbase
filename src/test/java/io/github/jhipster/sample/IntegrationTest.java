@@ -19,5 +19,4 @@ import tech.jhipster.config.JHipsterConstants;
 @SpringBootTest(classes = { JhipsterCouchbaseSampleApplicationApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedCouchbase
 @ActiveProfiles(JHipsterConstants.SPRING_PROFILE_TEST)
-public @interface IntegrationTest {
-}
+public @interface IntegrationTest {}
