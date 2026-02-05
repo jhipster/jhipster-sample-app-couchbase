@@ -1,48 +1,27 @@
 package io.github.jhipster.sample.config;
 
-import java.time.Duration;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.couchbase.*;
-import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.couchbase.BucketDefinition;
+import org.testcontainers.couchbase.CouchbaseContainer;
+import org.testcontainers.junit.jupiter.Container;
 
-public class CouchbaseTestContainer implements InitializingBean, DisposableBean {
+public interface CouchbaseTestContainer {
+    String BUCKET_NAME = "testBucket";
 
-    private CouchbaseContainer couchbaseContainer;
-    private static final Logger LOG = LoggerFactory.getLogger(CouchbaseTestContainer.class);
+    @Container
+    CouchbaseContainer couchbaseContainer = new CouchbaseContainer("couchbase/server:8.0.0")
+        .withBucket(new BucketDefinition(BUCKET_NAME))
+        .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(CouchbaseTestContainer.class)));
 
-    @Override
-    public void destroy() {
-        //        if (null != couchbaseContainer && couchbaseContainer.isRunning()) {
-        //            couchbaseContainer.stop();
-        //        }
-    }
-
-    public String getBucketName() {
-        return "testBucket";
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        if (null == couchbaseContainer) {
-            DockerImageName dockerImage = DockerImageName.parse("couchbase/server:8.0.0").asCompatibleSubstituteFor("couchbase/server");
-            couchbaseContainer = new CouchbaseContainer(dockerImage)
-                .withBucket(new BucketDefinition(getBucketName()))
-                .withCredentials("user", "password")
-                .withServiceQuota(CouchbaseService.SEARCH, 1024)
-                .withLogConsumer(new Slf4jLogConsumer(LOG))
-                .withStartupTimeout(Duration.ofMinutes(15))
-                .withReuse(true);
-        }
-        if (!couchbaseContainer.isRunning()) {
-            couchbaseContainer.start();
-        }
-    }
-
-    public CouchbaseContainer getCouchbaseContainer() {
-        return couchbaseContainer;
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.couchbase.connection-string", couchbaseContainer::getConnectionString);
+        registry.add("spring.couchbase.username", couchbaseContainer::getUsername);
+        registry.add("spring.couchbase.password", couchbaseContainer::getPassword);
+        registry.add("jhipster.database.couchbase.bucket-name", () -> BUCKET_NAME);
+        registry.add("jhipster.database.couchbase.scope-name", () -> "testScope");
     }
 }
