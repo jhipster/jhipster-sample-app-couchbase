@@ -131,7 +131,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert {@link ZonedDateTime}s to their {@link Long} representation.
      */
     @WritingConverter
-    public enum ZonedDateTimeToLongConverter implements Converter<ZonedDateTime, Long> {
+    public enum ZonedDateTimeToLongConverter
+        implements Converter<ZonedDateTime, Long>
+    {
         INSTANCE;
 
         @Override
@@ -144,7 +146,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert from {@link Number} {@link BigDecimal} representation.
      */
     @ReadingConverter
-    public enum NumberToLocalDateTimeConverter implements Converter<Number, ZonedDateTime> {
+    public enum NumberToLocalDateTimeConverter
+        implements Converter<Number, ZonedDateTime>
+    {
         INSTANCE;
 
         @Override
@@ -157,7 +161,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert {@link BigDecimal}s to their {@link String} representation.
      */
     @WritingConverter
-    public enum BigDecimalToStringConverter implements Converter<BigDecimal, String> {
+    public enum BigDecimalToStringConverter
+        implements Converter<BigDecimal, String>
+    {
         INSTANCE;
 
         public String convert(BigDecimal source) {
@@ -169,7 +175,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert from {@link String} {@link BigDecimal} representation.
      */
     @ReadingConverter
-    public enum StringToBigDecimalConverter implements Converter<String, BigDecimal> {
+    public enum StringToBigDecimalConverter
+        implements Converter<String, BigDecimal>
+    {
         INSTANCE;
 
         public BigDecimal convert(String source) {
@@ -181,7 +189,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert {@link BigInteger}s to their {@link String} representation.
      */
     @WritingConverter
-    public enum BigIntegerToStringConverter implements Converter<BigInteger, String> {
+    public enum BigIntegerToStringConverter
+        implements Converter<BigInteger, String>
+    {
         INSTANCE;
 
         public String convert(BigInteger source) {
@@ -193,7 +203,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert from {@link String} {@link BigInteger} representation.
      */
     @ReadingConverter
-    public enum StringToBigIntegerConverter implements Converter<String, BigInteger> {
+    public enum StringToBigIntegerConverter
+        implements Converter<String, BigInteger>
+    {
         INSTANCE;
 
         public BigInteger convert(String source) {
@@ -205,7 +217,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert from {@link String} {@code byte[]} representation.
      */
     @ReadingConverter
-    public enum StringToByteConverter implements Converter<String, byte[]> {
+    public enum StringToByteConverter
+        implements Converter<String, byte[]>
+    {
         INSTANCE;
 
         @Override
@@ -218,7 +232,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert {@link UUID}s to their {@link String} representation.
      */
     @WritingConverter
-    public enum UUIDToStringConverter implements Converter<UUID, String> {
+    public enum UUIDToStringConverter
+        implements Converter<UUID, String>
+    {
         INSTANCE;
 
         @Override
@@ -231,7 +247,9 @@ public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
      * Simple singleton to convert from {@link String} {@link UUID} representation.
      */
     @ReadingConverter
-    public enum StringToUUIDConverter implements Converter<String, UUID> {
+    public enum StringToUUIDConverter
+        implements Converter<String, UUID>
+    {
         INSTANCE;
 
         @Override

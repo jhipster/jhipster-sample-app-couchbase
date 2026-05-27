@@ -1,7 +1,5 @@
 package io.github.jhipster.sample.repository;
 
-import static java.lang.String.format;
-
 import com.couchbase.client.java.query.QueryScanConsistency;
 import java.util.List;
 import org.springframework.data.couchbase.repository.*;
@@ -25,12 +23,12 @@ public interface JHipsterCouchbaseRepository<T, ID> extends CouchbaseRepository<
                 .map(order -> {
                     String property = order.getProperty();
                     if ("id".equals(property)) {
-                        return order.withProperty(format("meta(%s).id", prefix));
+                        return order.withProperty("meta(%s).id".formatted(prefix));
                     }
                     if (prefix.isEmpty()) {
                         return order;
                     }
-                    return order.withProperty(format("%s.%s", prefix, property));
+                    return order.withProperty("%s.%s".formatted(prefix, property));
                 })
                 .toList()
         );

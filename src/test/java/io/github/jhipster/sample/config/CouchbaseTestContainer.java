@@ -12,7 +12,7 @@ public interface CouchbaseTestContainer {
     String BUCKET_NAME = "testBucket";
 
     @Container
-    CouchbaseContainer couchbaseContainer = new CouchbaseContainer("couchbase/server:8.0.0")
+    CouchbaseContainer couchbaseContainer = new CouchbaseContainer("couchbase/server:8.0.1")
         .withBucket(new BucketDefinition(BUCKET_NAME))
         .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(CouchbaseTestContainer.class)));
 
