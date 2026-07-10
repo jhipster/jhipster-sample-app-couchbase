@@ -46,13 +46,9 @@ class UserServiceIT {
     private Long numberOfUsers;
 
     @BeforeEach
-    void countUsers() {
-        numberOfUsers = userRepository.count();
-    }
-
-    @BeforeEach
     void init() {
         mockAuthentication();
+        numberOfUsers = userRepository.count();
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
         user.setPassword(RandomStringUtils.insecure().nextAlphanumeric(60));
